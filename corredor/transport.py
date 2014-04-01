@@ -14,7 +14,6 @@ class BaseTransport(object):
         self.address = None
         self.callbacks = {}
 
-
     def bind(self):
         bind_address = '%s://%s' % (self._protocol, self._location)
 
@@ -28,18 +27,6 @@ class BaseTransport(object):
             self.socket.bind(bind_address)
         self.address = bind_address
 
-    def connect(self):
-        if self._protocol in ('tcp', 'udp') and not self._port:
-            raise Exception("Must specify port for %s connections!" % self._protocol)
-
-        conn_address = '%s://%s' % (self._protocol, self._location)
-
-        if self._port:
-            conn_address = '%s:%s' % (bind_address, self._port)
-
-        self.socket.connect(conn_address)
-        self.address = conn_address
-    
     def send_json(self, data):
         message = [data['action'], json.dumps(data)]
         self.socket.send_multipart(message)

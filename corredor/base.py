@@ -16,10 +16,10 @@ class BaseTestStrategy(object):
         pass
 
     def process_output(self, on_stdout=None, on_stderr=None):
-        def store_stdout(line):
-            self.stdout.append(line)
-        def store_stderr(line):
-            self.stderr.append(line)
+        def store_stdout(data):
+            self.stdout.append(data['message'])
+        def store_stderr(data):
+            self.stderr.append(data['message'])
 
         def _process_output():
             sub = Subscriber('ipc', '/tmp/corredor_worker_output')

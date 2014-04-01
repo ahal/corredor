@@ -19,13 +19,13 @@ class PingPong(BaseTestStrategy):
 
         for test in tests:
             time.sleep(1) # simulate some processing
-            self.worker.send_json({'action': 'run', 'test': test})
+            self.worker.send_json({'action': 'test_start', 'test': test})
             self.worker.recv_json()
 
         self.worker.send_json({'action': 'fin'})
         import json
         print 'Test results: %s' % json.dumps(self.results, indent=2)
-        print self.stdout
-        print self.stderr
+        print ''.join(self.stdout)
+        print ''.join(self.stderr)
 
         self.worker.cleanup()
