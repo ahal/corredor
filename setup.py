@@ -6,7 +6,8 @@ from setuptools import setup, find_packages
 
 PACKAGE_VERSION = '0.1'
 
-deps = ['pyzmq']
+deps = ['mozlog >= 1.7',
+        'pyzmq']
 
 setup(name='corredor',
       version=PACKAGE_VERSION,

@@ -1,10 +1,12 @@
 from transport import Subscriber
-
 import threading
 
-class StreamHandler(object):
+class OutputHandler(object):
 
-    def __init__(self):
+    def __init__(self, protocol, location, port=None):
+        self._protocol = protocol
+        self._location = location
+        self._port = port
         self.stdout = []
         self.stderr = []
     
@@ -15,7 +17,7 @@ class StreamHandler(object):
             self.stderr.append(data['message'])
 
         def _process_output():
-            sub = Subscriber('ipc', '/tmp/corredor_worker_output')
+            sub = Subscriber(self._protocol, self._location, self._port)
             sub.subscribe('stdout', on_stdout or store_stdout)
             sub.subscribe('stderr', on_stderr or store_stderr)
             sub.listen()

@@ -1,6 +1,6 @@
-from corredor.strategies import PingPong
+from corredor.strategy import PingPong
 
 transport = PingPong()
 
 tests = ['test/foo', 'test/bar', 'test/baz']
-transport.run_tests(tests)
+transport.send_tests(tests)
