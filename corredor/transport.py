@@ -1,5 +1,5 @@
 import json
-import log
+import handler
 import threading
 import zmq
 
@@ -72,7 +72,7 @@ class SocketPattern(object):
 
     def _start_data_handlers(self):
         for i in range(0, self.num_data_handlers):
-            thread = threading.Thread(target=log.handle_data,
+            thread = threading.Thread(target=handler.handle_data,
                                       args=(self.action_map,
                                             self.handler._location,
                                             self.context))
