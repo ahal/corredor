@@ -95,11 +95,6 @@ class ExclusivePair(SocketPattern):
         SocketPattern.__init__(self, zmq.PAIR, protocol, location, port=port)
         self._start_data_handlers()
 
-    def wait_ready(self):
-        data = {}
-        while data.get('action') != 'ready':
-            data = self.recv_json()
-
     def register_callback(self, action, callback):
         self.action_map[action] = callback
 
