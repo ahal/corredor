@@ -1,12 +1,10 @@
-from transport import Subscriber
+from .pattern import Subscriber
 import threading
 
 class OutputHandler(object):
 
-    def __init__(self, protocol, location, port=None):
-        self._protocol = protocol
-        self._location = location
-        self._port = port
+    def __init__(self, address):
+        self.address = address
         self.stdout = []
         self.stderr = []
     
@@ -17,7 +15,8 @@ class OutputHandler(object):
             self.stderr.append(data['message'])
 
         def _process_output():
-            sub = Subscriber(self._protocol, self._location, self._port)
+            sub = Subscriber()
+            sub.bind(self.address)
             sub.subscribe('stdout', on_stdout or store_stdout)
             sub.subscribe('stderr', on_stderr or store_stderr)
             sub.listen()
