@@ -57,45 +57,32 @@ class Socket(object):
 
 
 class SocketPattern(object):
-    num_data_handlers = 1
 
-    def __init__(self, socket_type, protocol, location, port=None):
+    def __init__(self, socket_type, protocol, location, port=None, num_data_workers=1):
         self.context = zmq.Context()
         self.socket = Socket(socket_type, protocol, location, port=port, context=self.context)
         self.socket.bind()
 
-        # inter-thread socket used for handling received data
-        self.handler = Socket(zmq.PUSH, 'inproc', '%s_data_stream' % location, context=self.context)
-        self.handler.bind()
-
         self.action_map = {}
-
-    def _start_data_handlers(self):
-        for i in range(0, self.num_data_handlers):
-            thread = threading.Thread(target=handler.handle_data,
-                                      args=(self.action_map,
-                                            self.handler._location,
-                                            self.context))
-            thread.daemon = True
-            thread.start()
-
-    def _stop_data_handlers(self):
-        for i in range(0, self.num_data_handlers):
-            self.handler.send_json({'action': 'fin'})
+        self.handler = handler.Handler(location, self.action_map, num_data_workers, self.context)
 
     def cleanup(self):
-        self._stop_data_handlers()
         self.socket.cleanup()
         self.handler.cleanup()
 
 
 class ExclusivePair(SocketPattern):
 
-    def __init__(self, protocol, location, port=None):
-        SocketPattern.__init__(self, zmq.PAIR, protocol, location, port=port)
-        self._start_data_handlers()
+    def __init__(self, protocol, location, port=None, **kwargs):
+        SocketPattern.__init__(self, zmq.PAIR, protocol, location, port=port, **kwargs)
 
-    def register_callback(self, action, callback):
+    def wait_for_action(self, action):
+        data = {}
+        while data.get('action') != action:
+            data = self.recv_json()
+        return data
+
+    def register_action(self, action, callback):
         self.action_map[action] = callback
 
     def send_json(self, data):
@@ -103,7 +90,7 @@ class ExclusivePair(SocketPattern):
 
     def recv_json(self):
         data = self.socket.recv_json()
-        self.handler.send_json(data)
+        self.handler(data)
         return data
 
 
@@ -116,10 +103,8 @@ class Subscriber(SocketPattern):
         self.socket.setsockopt(zmq.SUBSCRIBE, action)
 
     def listen(self):
-        self._start_data_handlers()
-
         action = None
         while action != 'fin':
             data = self.socket.recv_json()
-            self.handler.send_json(data)
+            self.handler(data)
         self.cleanup()

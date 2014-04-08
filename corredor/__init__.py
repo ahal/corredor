@@ -1,4 +1,3 @@
-import handler
-import output
-import strategy
-import transport
+from strategy import *
+from output import *
+from transport import *

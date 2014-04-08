@@ -8,16 +8,19 @@ import time
 
 transport = PingPong()
 
-# figure out which tests to run
-tests = ['test/foo', 'test/bar', 'test/baz']
-for test in tests:
-    # wait for profile to run
-    profile = transport.synchronize('profile')
+def launch_target(data):
+    profile = data['profile']
+    print 'received profile: %s' % profile
     # use profile to launch b2g_desktop/device
     time.sleep(1)
-    # set up monitoring for timeouts/crashes
-    transport.send_test(test)
-    # do cleanup
-    time.sleep(1)
+    # send ready
+    transport.send_json({'action': 'ready'})
 
+# register callback on profile action
+transport.register_action('profile', launch_target)
+
+# figure out which tests to run
+tests = ['test/foo', 'test/bar', 'test/baz']
+# set up monitoring for timeouts/crashes
+transport.send_tests(tests)
 transport.finish()
