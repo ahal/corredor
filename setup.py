@@ -7,6 +7,7 @@ from setuptools import setup, find_packages
 PACKAGE_VERSION = '0.1'
 
 deps = ['mozlog >= 1.7',
+        'tornado',
         'pyzmq']
 
 setup(name='corredor',

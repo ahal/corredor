@@ -1,2 +1,4 @@
-from output import *
 from pattern import *
+
+import eventloop
+import devices
