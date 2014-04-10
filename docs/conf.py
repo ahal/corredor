@@ -22,6 +22,11 @@ import mozilla_sphinx_theme
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #sys.path.insert(0, os.path.abspath('.'))
 
+here = os.path.abspath(os.path.dirname(__file__))
+root = os.path.dirname(here)
+sys.path.insert(0, root)
+sys.path.insert(0, os.path.join(root, 'corredor'))
+
 # -- General configuration ------------------------------------------------
 
 # If your documentation needs a minimal Sphinx version, state it here.

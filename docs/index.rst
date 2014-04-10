@@ -17,7 +17,7 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   strategy
+ pattern 
 
 Indices and tables
 ==================

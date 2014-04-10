@@ -16,7 +16,7 @@ output from the workers and forwards them on to the test harness.
 Installation
 ============
 
-Corredor uses ZeroMQ for the transport. To install:
+Corredor uses ZeroMQ for the transport. To install zmq:
 
     # Ubuntu/Debian
     $ sudo apt-get install libzmq3-dev
@@ -26,3 +26,12 @@ Corredor uses ZeroMQ for the transport. To install:
     
     # OSX
     $ sudo brew install zmq
+
+To install the Python bindings, first [install pip](http://www.pip-installer.org/en/latest/installing.html), then:
+
+    $ pip install corredor
+
+Documentation
+=============
+
+Please [readthedocs](http://corredor.readthedocs.org/en/latest/index.html).
