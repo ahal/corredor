@@ -3,6 +3,8 @@ corredor
 
 > Spanish, corredor *m*, noun 1. corridor, hall 2. runner 3. broker
 
+[![Build Status](https://travis-ci.org/ahal/corredor.png?branch=master)](https://travis-ci.org/ahal/corredor)
+
 Corredor is a framework designed for creating distributed test runners. It acts as a message broker
 for communication across threads, processes or machines. Corredor does not know anything about test
 runners itself, instead it provides the transport via ZeroMQ as well as some common strategies for splitting
@@ -34,4 +36,11 @@ To install the Python bindings, first [install pip](http://www.pip-installer.org
 Documentation
 =============
 
-Please [readthedocs](http://corredor.readthedocs.org/en/latest/index.html).
+Please [readthedocs](http://corredor.readthedocs.org/en/latest/index.html) for more information.
+
+Testing
+=======
+
+To run all unittests:
+
+    $ python setup.py test
