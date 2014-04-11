@@ -37,7 +37,8 @@ class Handler(object):
         if self.num_workers:
             self.socket.send_json(data)
         else:
-            self.action_map[data['action']](data)
+            if data['action'] in self.action_map:
+                self.action_map[data['action']](data)
 
     def cleanup(self):
         if self.num_workers:

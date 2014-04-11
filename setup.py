@@ -31,4 +31,5 @@ setup(name='corredor',
       include_package_data=True,
       zip_safe=False,
       install_requires=deps,
+      test_suite='tests',
 )
