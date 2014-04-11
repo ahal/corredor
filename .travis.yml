@@ -6,3 +6,7 @@ notifications:
     email:
         recipients:
           - ahalberstadt@mozilla.com
+
+before_install:
+ - sudo apt-get install libzmq3-dev
+script: python setup.py test

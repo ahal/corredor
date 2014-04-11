@@ -1,0 +1,2 @@
+pyzmq
+mozlog >= 1.7
