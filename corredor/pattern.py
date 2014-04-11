@@ -168,6 +168,7 @@ class Subscriber(SocketPattern):
         :type num_data_workers: int.
         """
         SocketPattern.__init__(self, zmq.SUB, *args, **kwargs)
+        self.subscribe('fin')
 
     def subscribe(self, action, callback=None):
         """
