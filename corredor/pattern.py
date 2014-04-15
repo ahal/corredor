@@ -57,7 +57,7 @@ class SocketPattern(object):
                         tcp://127.0.0.1:5555
         :type address: str.
         """
-                        
+
         self.socket.bind(address)
         self._address = address
 
@@ -75,19 +75,6 @@ class SocketPattern(object):
         self.socket.connect(address)
         self._address = address
 
-    def send_json(self, data):
-        """
-        Formats a dictonary as a JSON message and sends it over the connected or bound
-        address.
-
-        :param data: Dictionary to send. Must contain an 'action' key, otherwise a
-                     KeyError is raised.
-        :type data: dict.
-        :raises KeyError:
-        """
-        self.socket.send_string(data['action'], zmq.SNDMORE)
-        self.socket.send_json(data)
-
     def recv_json(self):
         """
         Receive a JSON message and pass it on to the dispatch function. This blocks
@@ -103,7 +90,6 @@ class SocketPattern(object):
                     is the data string which is serialized to JSON.
         :type msg: list.
         """
-
         action, data = msg
         data = json.loads(data)
         self.handler(data)
@@ -155,6 +141,19 @@ class ExclusivePair(SocketPattern):
         :type callback: callable.
         """
         self.action_map[action] = callback
+
+    def send_json(self, data):
+        """
+        Formats a dictonary as a JSON message and sends it over the connected or bound
+        address.
+
+        :param data: Dictionary to send. Must contain an 'action' key, otherwise a
+                     KeyError is raised.
+        :type data: dict.
+        :raises KeyError:
+        """
+        self.socket.send_string(data['action'], zmq.SNDMORE)
+        self.socket.send_json(data)
 
 
 class Subscriber(SocketPattern):
