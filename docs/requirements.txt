@@ -1,1 +1,1 @@
-mozilla-sphinx-theme
+sphinx-bootstrap-theme
