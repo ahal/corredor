@@ -5,15 +5,16 @@ corredor
 
 [![Build Status](https://travis-ci.org/ahal/corredor.png?branch=master)](https://travis-ci.org/ahal/corredor)
 
-Corredor is a framework designed for creating distributed test runners. It acts as a message broker
-for communication across threads, processes or machines. Corredor does not know anything about test
-runners itself, instead it provides the transport via ZeroMQ as well as some common strategies for splitting
-up a test job.
+Corredor is a framework designed for creating distributed test runners and other distributed applications. It
+acts as a message broker for communication across threads, processes or machines. Corredor does not know anything
+about test runners itself, instead it provides the transport via ZeroMQ as well as some handy abstractions and
+leaves it up to the test harness creator to do the rest.
 
-It forces separation of test runners into two parts, a service and one or more workers. The service is written
-in Python and is responsible for sending tests for the workers(s) to run. The workers can be
-written in any language, and are what actually runs the tests. The service collects results and
-output from the workers and forwards them on to the test harness.
+Documentation
+=============
+
+Please [readthedocs](http://corredor.readthedocs.org/en/latest/index.html) for more information.
+
 
 Installation
 ============
@@ -32,11 +33,6 @@ Corredor uses ZeroMQ for the transport. To install zmq:
 To install the Python bindings, first [install pip](http://www.pip-installer.org/en/latest/installing.html), then:
 
     $ pip install corredor
-
-Documentation
-=============
-
-Please [readthedocs](http://corredor.readthedocs.org/en/latest/index.html) for more information.
 
 Testing
 =======

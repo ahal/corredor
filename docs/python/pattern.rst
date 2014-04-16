@@ -17,9 +17,8 @@ ExclusivePair
 -------------
 
 The ExclusivePair pattern maps to zmq's `PAIR sockets`_. Exclusive pairs must only
-connect or bind to a single PAIR socket. They may send and receive data bi-directionally
-and in any order. That is, they may send multiple times in a row without calling
-recv.
+connect or bind to one other PAIR socket. They may send and receive data bi-directionally
+and in any order. That is, they may call send/recv multiple times in a row.
 
 .. _`PAIR sockets`: http://api.zeromq.org/2-1:zmq-socket#toc14
 

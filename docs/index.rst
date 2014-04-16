@@ -7,6 +7,8 @@
 Corredor
 ========
 
+    Spanish, corredor *m*, noun 1. corridor, hall 2. runner 3. broker
+
 Corredor is a framework for building distributed test harnesses using ZeroMQ.
 There are generally two reasons you might want to consider using it:
 
@@ -32,14 +34,11 @@ speak the protocol. Currently there are bindings in both Python and NodeJS.
 Installation
 ============
 
-To install the Python bindings, first `install pip`_, then run:
-
-    $ pip install corredor
-
-Corredor uses ZeroMQ as a transport, this means you'll need libzmq. Pyzmq will
-attempt to compile it from source if it's not already installed. If that fails,
-you may need to install libzmq manually. Luckily, there is a package for it in
-most linux distros:
+libzmq
+~~~~~~
+If installing the python bindings, pyzmq will attempt to compile libzmq from source.
+But if that doesn't work, or you wish to use only the NodeJS bindings, you'll need
+to install it manually. Luckily there are packages for many operating systems:
 
 * Ubuntu/Debian
     $ sudo apt-get install libzmq3-dev
@@ -53,14 +52,26 @@ most linux distros:
 If your OS isn't listed, or you'd like to install the latest version of zmq,
 see the `official downloads page`_.
 
+
+Python bindings
+~~~~~~~~~~~~~~~
+
+To install the Python bindings, first `install pip`_, then run:
+
+    $ pip install corredor
+
+
+NodeJS bindings
+~~~~~~~~~~~~~~~
+
 To install the NodeJS bindings, you'll first need to manually install libzmq
 (see above). After that, run:
 
     $ npm install corredor-js
 
 
-.. _`install pip`: http://www.pip-installer.org/en/latest/installing.html
 .. _`official downloads page`: http://zeromq.org/intro:get-the-software
+.. _`install pip`: http://www.pip-installer.org/en/latest/installing.html
 
 Indices and tables
 ==================
