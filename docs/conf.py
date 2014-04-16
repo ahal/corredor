@@ -115,7 +115,7 @@ html_theme = 'bootstrap'
 # documentation.
 html_theme_options = {
     'bootswatch_theme': 'cosmo',
-    #'navbar_class': 'navbar navbar-inverse',
+    'source_link_position': 'footer',
 }
 
 # Add any paths that contain custom themes here, relative to this directory.

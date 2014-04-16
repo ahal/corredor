@@ -79,3 +79,13 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`search`
 
+
+.. toctree::
+ :maxdepth: 1
+
+ Python Bindings <python/index>
+ python/example
+ python/pattern
+ python/handler
+ python/eventloop
+ python/testing/devices
