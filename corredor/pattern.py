@@ -42,7 +42,7 @@ class SocketPattern(object):
 
         :raises: zmq.ZMQerror
         """
-        if not hasattr(self, '_address'):
+        if not self._address:
             raise zmq.ZMQError('Address not available, socket not bound or connected!')
         return self._address
 
@@ -107,7 +107,7 @@ class SocketPattern(object):
 
 class ExclusivePair(SocketPattern):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         """
         Creates a zmq.PAIR socket which can only be connected to one other socket
         at a time.
@@ -116,7 +116,7 @@ class ExclusivePair(SocketPattern):
                                  defaults to 0 which means callbacks are synchronous.
         :type num_data_workers: int.
         """
-        SocketPattern.__init__(self, zmq.PAIR, *args, **kwargs)
+        SocketPattern.__init__(self, zmq.PAIR, **kwargs)
 
     def wait_for_action(self, action):
         """
@@ -157,7 +157,7 @@ class ExclusivePair(SocketPattern):
 
 
 class Subscriber(SocketPattern):
-    def __init__(self, *args, **kwargs):
+    def __init__(self, **kwargs):
         """
         Creates a zmq.SUB socket which will only receive actions for which it has
         subscribed.
@@ -166,7 +166,7 @@ class Subscriber(SocketPattern):
                                  defaults to 0 which means callbacks are synchronous.
         :type num_data_workers: int.
         """
-        SocketPattern.__init__(self, zmq.SUB, *args, **kwargs)
+        SocketPattern.__init__(self, zmq.SUB, **kwargs)
         self.subscribe('fin')
 
     def subscribe(self, action, callback=None):
@@ -184,7 +184,7 @@ class Subscriber(SocketPattern):
 
     def listen(self):
         """
-        Listen for events until the 'fin' action is received. All subcribed actions
+        Listen for events until the 'fin' action is received. All subscribed actions
         are processed.
         """
         action = None
